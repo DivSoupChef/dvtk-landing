@@ -1,7 +1,6 @@
 export default [
   { title: 'Главная', href: '/' },
-  { title: 'Основные сведения', href: '#!' },
-  { title: 'Документы', href: '#!' },
-  { title: 'Образование', href: '#!' },
-  { title: 'Руководство', href: '#!' },
+  { title: 'Мероприятия', href: '#!' },
+  { title: 'РЦОК', href: '#!' },
+  { title: 'РУМО', href: '#!' },
 ];

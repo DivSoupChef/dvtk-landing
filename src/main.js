@@ -1,6 +1,7 @@
 import './assets/styles/main.scss';
-import { autoInit } from './assets/scripts/auto-init.js';
+import { autoInit } from './assets/scripts/auto-init';
+
 
 document.addEventListener('DOMContentLoaded', () => {
-  autoInit();
+  autoInit();  
 });

@@ -1,0 +1,19 @@
+<ul class="submenu__list">
+  @for item in submenu
+    <li class="submenu__item">
+      <button data-module="dropdown" class="submenu__btn">
+        {{ item.title }}
+
+        @include components/icon.html {
+          class: "icon--stroke",
+          name: "arr-right-icon"
+        }
+      </button>
+      
+      @include components/list.html {
+        className: "dropdown",
+        menu: item.dropdown
+      }
+    </li>
+  @endfor
+</ul>
