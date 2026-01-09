@@ -1,0 +1,18 @@
+@data page from "data/page.js"
+@data menu from "data/menu.js"
+
+@layout layouts/default.html
+@include components/list.html {
+  className: "nav"
+}
+  
+<h1>{{page.title}}</h1>
+
+@include components/button/button.html {
+  items: [
+    {text: "TEXT"}
+  ]
+}
+
+
+<script type="module" src="/assets/scripts/main.js"></script>

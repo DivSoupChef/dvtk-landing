@@ -1,0 +1,43 @@
+@use '@styles/base/tokens' as t;
+@use '@styles/base/mixins' as m;
+
+.btn {
+  position: relative;
+  padding: 12px 24px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  max-width: max-content;
+
+  &--header {
+    border-radius: 8px 0 0 8px;
+    padding: 16px 50px 16px 20px;
+  }
+
+  &--primary {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: t.$accent;
+    color: t.$white;
+
+    & > .icon {
+      font-size: 20px;
+    }
+
+    @include m.hover {
+      opacity: 0.9;
+    }
+  }
+
+  &--ghost {
+    background: transparent;
+    color: t.$accent;
+  }
+
+  &--stroke {
+    background: transparent;
+    outline: 1px solid t.$accent;
+    color: t.$accent;
+  }
+}

@@ -1,0 +1,4 @@
+export default [
+  { id: 1, name: 'Alice', active: true },
+  { id: 2, name: 'Bob', active: false },
+];

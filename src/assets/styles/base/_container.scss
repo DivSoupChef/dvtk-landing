@@ -1,0 +1,7 @@
+@use '@styles/base/tokens' as t;
+
+[class*='__container'] {
+  max-width: t.$container-width;
+  padding-inline: t.$container-padding;
+  margin-inline: auto;
+}

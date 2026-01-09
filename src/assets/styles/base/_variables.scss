@@ -1,0 +1,28 @@
+@import url(https://fonts.googleapis.com/css?family=Inter:100,200,300,regular,500,600,700,800,900);
+
+/* colors */
+$black: #000;
+$white: #fff;
+
+$dark: #2B3A4E;
+
+$gray-100: #F6F7FA;
+$gray-200: #F2F5F9;
+$gray-500: #A1ABB9;
+$gray-800: #263141;
+$gray-900: #0F1113;
+
+$red-light: #FF4D4D;
+
+$accent: #FF4D4D;
+
+$primary-bg: #F6F7F9;
+/* typography */
+$font-main: 'Inter', sans-serif;
+
+/* layout */
+$container-width: 1200px;
+$container-padding: 16px;
+
+/* transitions */
+$transition-fast: 0.2s ease;

@@ -1,0 +1,85 @@
+@use '@styles/base/tokens' as t;
+@use '@styles/base/mixins' as m;
+
+.header {
+  padding: 20px 0;
+  background-color: t.$white;
+  border-bottom: 1px solid t.$neutral-200;
+
+  &__container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__content {
+    &._l-col {
+      display: flex;
+      align-items: center;
+      gap: 100px;
+    }
+  }
+
+  &__logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  &__logo-icon {
+    & > svg {
+      display: block;
+    }
+  }
+
+  &__logo-text {
+    &._lg {
+      font-size: t.$fs-lg;
+      line-height: t.$lh-130;
+    }
+
+    &._sm {
+      font-size: t.$fs-sm;
+      line-height: t.$lh-140;
+      color: t.$neutral-500;
+    }
+  }
+
+  &__buttons {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  &__button {
+    padding: 12px;
+    border-radius: 8px;
+    outline: 1px solid t.$neutral-200;
+    font-size: 20px;
+
+    & > svg {
+      transition: fill 0.3s ease;
+    }
+
+    @include m.hover {
+      & > svg {
+        fill: t.$accent;
+      }
+    }
+  }
+}
+
+.nav {
+  &__list {
+    display: flex;
+    gap: 24px;
+  }
+
+  &__item {
+    text-transform: uppercase;
+  }
+
+  &__link {
+    color: t.$neutral-700;
+  }
+}

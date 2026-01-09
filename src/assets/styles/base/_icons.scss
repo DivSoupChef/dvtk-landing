@@ -1,0 +1,22 @@
+.icon {
+  width: 1em;
+  height: 1em;
+  display: block;
+  transition: inherit;
+}
+
+/* fill-иконки */
+.icon--fill {
+  fill: currentColor;
+}
+
+/* stroke-иконки */
+.icon--stroke {
+  fill: transparent;
+  stroke: currentColor;
+}
+
+/* размеры */
+.icon--sm { font-size: 16px; }
+.icon--md { font-size: 24px; }
+.icon--lg { font-size: 32px; }
