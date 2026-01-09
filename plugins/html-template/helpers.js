@@ -1,10 +1,55 @@
 import fs from 'fs';
 import path from 'path';
+import { parse } from 'node-html-parser';
 
 const SRC_ROOT = path.resolve('src');
+const PICTURE_DEFAULTS = {
+  formats: ['avif', 'webp', 'jpg'],
+  breakpoints: [320, 640, 960, 1280],
+  sizes: '(max-width: 768px) 100vw, 50vw',
+  loading: 'lazy',
+  decoding: 'async',
+  fetchpriority: 'auto',
+};
 
 function get(obj, pathStr) {
   return pathStr.split('.').reduce((a, k) => a?.[k], obj);
+}
+
+/* ===== PICTURE ===== */
+
+function applyPicture(html, options = {}) {
+  const opts = {
+    ...PICTURE_DEFAULTS,
+    ...options,
+  };
+
+  const root = parse(html);
+
+  root.querySelectorAll('[data-picture]').forEach(node => {
+    const src = node.getAttribute('data-src');
+    const alt = node.getAttribute('data-alt') ?? '';
+    const width = node.getAttribute('data-width');
+    const height = node.getAttribute('data-height');
+
+    if (!src) return;
+
+    // DEV / SSR / PREVIEW — простой img
+    node.replaceWith(
+      `
+<img
+  src="/assets/images/${src}.jpg"
+  alt="${alt}"
+  ${width ? `width="${width}"` : ''}
+  ${height ? `height="${height}"` : ''}
+  loading="${opts.loading}"
+  decoding="${opts.decoding}"
+>
+`.trim(),
+    );
+  });
+
+  return root.toString();
 }
 
 /* ===== PROPS ===== */
@@ -143,10 +188,34 @@ function applySvg(html) {
 /* ===== INCLUDE ===== */
 
 function resolveInclude(file) {
-  const full = path.join(SRC_ROOT, file);
-  if (!fs.existsSync(full)) return '';
-  return fs.readFileSync(full, 'utf-8');
+  const base = path.join(SRC_ROOT, file);
+
+  if (!fs.existsSync(base)) return '';
+
+  const stat = fs.statSync(base);
+
+  // 1️⃣ Если это файл — читаем
+  if (stat.isFile()) {
+    return fs.readFileSync(base, 'utf-8');
+  }
+
+  // 2️⃣ Если это папка — ищем index.html или <name>.html
+  if (stat.isDirectory()) {
+    const indexFile = path.join(base, 'index.html');
+    const namedFile = base + '.html';
+
+    if (fs.existsSync(indexFile)) {
+      return fs.readFileSync(indexFile, 'utf-8');
+    }
+
+    if (fs.existsSync(namedFile)) {
+      return fs.readFileSync(namedFile, 'utf-8');
+    }
+  }
+
+  return '';
 }
+
 
 async function parseIncludes(html, handler) {
   let result = '';
@@ -207,4 +276,5 @@ export default {
   applySvg,
   resolveInclude,
   parseIncludes,
+  applyPicture,
 };

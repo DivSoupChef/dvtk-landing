@@ -1,0 +1,40 @@
+<header class="header">
+  <div class="header__container">
+    @include components/inline-svg.html {
+      icon: "logo-icon.svg",
+      class: "header__logo"
+    }
+    @include components/inline-svg.html {
+      icon: "mobile-logo-icon.svg",
+      class: "header__logo-mobile"
+    }
+    <nav class="header__menu menu">
+      @include components/list.html {
+        className: "menu"
+      }
+    </nav>
+    <div class="header__buttons">
+      @include components/button/button.html {
+        items: [
+          { 
+            iconName: "search-icon" ,
+            section: "header",
+          },
+          { 
+            iconName: "eye-icon" ,
+            section: "header",
+          },
+          { 
+            iconName: "call-icon" ,
+            section: "header",
+          },
+          { 
+            modifier: "menu",
+            iconName: "menu-icon",
+            section: "header",
+          }
+        ]
+      }
+    </div>
+  </div>
+</header>

@@ -1,5 +1,7 @@
 export default [
   { title: 'Главная', href: '/' },
-  { title: 'О нас', href: '/about.html' },
-  { title: 'Контакты', href: '/contacts.html' },
+  { title: 'Основные сведения', href: '#!' },
+  { title: 'Документы', href: '#!' },
+  { title: 'Образование', href: '#!' },
+  { title: 'Руководство', href: '#!' },
 ];

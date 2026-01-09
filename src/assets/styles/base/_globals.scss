@@ -8,6 +8,10 @@ body {
   background-color: t.$white;
 }
 
+svg {
+  display: block;
+}
+
 button {
   user-select: none; 
   -webkit-user-select: none;

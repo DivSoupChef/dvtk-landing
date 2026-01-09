@@ -8,20 +8,20 @@ import helpers from './helpers.js';
 const PAGES_DIR = path.resolve('src/pages');
 
 async function render(html) {
-  // 1️⃣ @data
   const { html: cleaned, scope } = await extractData(html);
 
-  // 2️⃣ @section (ВАЖНО!)
   const { html: withoutSections, sections } = helpers.extractSections(cleaned);
 
-  // кладём секции в scope
   scope.sections = sections;
 
-  // 3️⃣ @layout (ПОСЛЕ section)
-  const withLayout = helpers.applyLayout(withoutSections, sections);
+  let result = helpers.applyLayout(withoutSections, sections);
 
-  // 4️⃣ include / for / if / props / svg
-  return await renderTemplate(withLayout, scope, helpers);
+  result = await renderTemplate(result, scope, helpers);
+
+  // 🔥 ВАЖНО: ПОСЛЕ renderTemplate
+  result = helpers.applyPicture(result);
+
+  return result;
 }
 
 export default function htmlTemplatePlugin() {
@@ -42,13 +42,33 @@ export default function htmlTemplatePlugin() {
     /* ================= DEV ================= */
 
     configureServer(server) {
+      const dataDir = path.resolve('src/data');
+
+      server.watcher.add(dataDir);
+
+      server.watcher.on('change', file => {
+        if (file.startsWith(dataDir)) {
+          console.log('[html-template] data changed:', file);
+
+          server.ws.send({
+            type: 'full-reload',
+          });
+        }
+      });
+
+      server.watcher.on('add', file => {
+        if (file.startsWith(dataDir)) {
+          server.ws.send({ type: 'full-reload' });
+        }
+      });
+
       server.middlewares.use(async (req, res, next) => {
         if (!req.url) return next();
 
         const url = req.url.split('?')[0].split('#')[0];
         const page = url === '/' ? 'index' : url.replace(/^\//, '').replace(/\.html$/, '');
-
         const filePath = path.join(PAGES_DIR, `${page}.html`);
+
         if (!fs.existsSync(filePath)) return next();
 
         const raw = fs.readFileSync(filePath, 'utf-8');

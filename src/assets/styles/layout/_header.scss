@@ -3,8 +3,6 @@
 
 .header {
   padding: 20px 0;
-  background-color: t.$white;
-  border-bottom: 1px solid t.$neutral-200;
 
   &__container {
     display: flex;
@@ -12,37 +10,12 @@
     justify-content: space-between;
   }
 
-  &__content {
-    &._l-col {
-      display: flex;
-      align-items: center;
-      gap: 100px;
-    }
-  }
-
   &__logo {
-    display: flex;
-    align-items: center;
-    gap: 12px;
+    display: none;
   }
 
-  &__logo-icon {
-    & > svg {
-      display: block;
-    }
-  }
-
-  &__logo-text {
-    &._lg {
-      font-size: t.$fs-lg;
-      line-height: t.$lh-130;
-    }
-
-    &._sm {
-      font-size: t.$fs-sm;
-      line-height: t.$lh-140;
-      color: t.$neutral-500;
-    }
+  &__logo-mobile {
+    display: block;
   }
 
   &__buttons {
@@ -52,34 +25,58 @@
   }
 
   &__button {
-    padding: 12px;
-    border-radius: 8px;
-    outline: 1px solid t.$neutral-200;
     font-size: 20px;
-
-    & > svg {
-      transition: fill 0.3s ease;
-    }
-
-    @include m.hover {
-      & > svg {
-        fill: t.$accent;
-      }
-    }
+    transition: all 0.3s ease;
   }
 }
 
-.nav {
+.menu {
+  display: none;
+
   &__list {
     display: flex;
     gap: 24px;
   }
 
-  &__item {
-    text-transform: uppercase;
-  }
-
   &__link {
+    transition: all 0.3s ease;
+    font-weight: t.$fw-m;
     color: t.$neutral-700;
+  }
+}
+
+@media (min-width: 476px) {
+  .header {
+    &__logo {
+      display: block;
+    }
+
+    &__logo-mobile {
+      display: none;
+    }
+  }
+}
+
+@media (min-width: 1025px) {
+  .header {
+    &__button {
+      &._menu {
+        display: none;
+      }
+      @include m.hover {
+        color: t.$accent;
+      }
+    }
+  }
+  .menu {
+    display: block;
+
+    &__item {
+      @include m.hover {
+        & > * {
+          color: t.$accent;
+        }
+      }
+    }
   }
 }

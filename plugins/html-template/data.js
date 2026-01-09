@@ -23,15 +23,21 @@ export async function extractData(html) {
 async function loadSource(src) {
   if (src.startsWith('http')) {
     const res = await fetch(src);
-    return res.json();
+    return await res.json();
   }
 
   const full = path.resolve('src', src.replace(/^\.?\//, ''));
 
   if (full.endsWith('.js')) {
-    const url = pathToFileURL(full).href;
+    const url = pathToFileURL(full).href + `?t=${Date.now()}`;
     const mod = await import(url);
-    return mod.default ?? mod;
+    const value = mod.default ?? mod;
+
+    if (typeof value === 'function') {
+      return await value();
+    }
+
+    return value;
   }
 
   if (full.endsWith('.json')) {
