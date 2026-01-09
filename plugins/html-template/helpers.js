@@ -30,15 +30,42 @@ function applyProps(html, scope) {
 
 /* ===== LAYOUT ===== */
 
-export function applyLayout(html) {
+function applyLayout(html, sections = {}) {
   const match = html.match(/@layout\s+([\w./-]+)/);
   if (!match) return html;
 
   const layoutPath = path.resolve('src', match[1]);
-  const layoutHtml = fs.readFileSync(layoutPath, 'utf-8');
+  let layoutHtml = fs.readFileSync(layoutPath, 'utf-8');
 
   html = html.replace(match[0], '').trim();
-  return layoutHtml.replace('{{ content }}', html);
+
+  sections.content ??= html;
+
+  layoutHtml = applySections(layoutHtml, sections);
+
+  return layoutHtml;
+}
+
+/* ===== SECTION ===== */
+
+/* ===== SECTION ===== */
+
+function extractSections(html) {
+  const sections = {};
+  const RE = /@section\s+(\w+)([\s\S]*?)@endsection/g;
+
+  html = html.replace(RE, (_, name, body) => {
+    sections[name] = body.trim();
+    return '';
+  });
+
+  return { html, sections };
+}
+
+function applySections(html, sections = {}) {
+  return html.replace(/@section\s+(\w+)/g, (_, name) => {
+    return sections[name] ?? '';
+  });
 }
 
 /* ===== IF ===== */
@@ -58,19 +85,48 @@ function applyIf(html, scope) {
 
 /* ===== FOR ===== */
 
-function applyFor(html, scope) {
-  const RE = /@for\s+(\w+)\s+in\s+([^\n]+)([\s\S]*?)@endfor/g;
+async function replaceAsync(str, regex, asyncFn) {
+  const matches = [];
+  str.replace(regex, (...args) => {
+    matches.push(args);
+    return '';
+  });
 
-  return html.replace(RE, (_, item, listExpr, body) => {
-    const list = get(scope, listExpr.trim());
+  let result = '';
+  let lastIndex = 0;
+
+  for (const match of matches) {
+    const [fullMatch, ...rest] = match;
+    const index = match[match.length - 2];
+
+    result += str.slice(lastIndex, index);
+    result += await asyncFn(...match);
+    lastIndex = index + fullMatch.length;
+  }
+
+  result += str.slice(lastIndex);
+  return result;
+}
+
+async function applyFor(html, scope, renderTemplate, helpers) {
+  const RE = /@for\s+(\w+)\s+in\s+([\w.]+)([\s\S]*?)@endfor/g;
+
+  return await replaceAsync(html, RE, async (_, itemName, listName, body) => {
+    const list = get(scope, listName);
     if (!Array.isArray(list)) return '';
 
-    return list
-      .map(val => {
-        const local = { ...scope, [item]: val };
-        return applyFor(applyIf(applyProps(body, local), local), local);
-      })
-      .join('');
+    let result = '';
+
+    for (const item of list) {
+      const localScope = {
+        ...scope,
+        [itemName]: item,
+      };
+
+      result += await renderTemplate(body, localScope, helpers);
+    }
+
+    return result;
   });
 }
 
@@ -142,6 +198,8 @@ async function parseIncludes(html, handler) {
 
 export default {
   applyLayout,
+  extractSections,
+  applySections,
   parseProps,
   applyProps,
   applyIf,

@@ -3,7 +3,6 @@ import fs from 'fs';
 import path from 'path';
 
 import picturePlugin from './plugins/vite-picture-plugin.js';
-import devPagesRouter from './plugins/vite-dev-pages-router.js';
 import buildPagesFix from './plugins/vite-build-pages-fix.js';
 import htmlMinifyPlugin from './plugins/vite-html-minify.js';
 import viteSvgPlugin from './plugins/vite-svg-plugin.js';
@@ -65,7 +64,6 @@ export default defineConfig({
   plugins: [
     htmlTemplatePlugin(),
 
-    // devPagesRouter(),
     buildPagesFix(),
 
     picturePlugin(),

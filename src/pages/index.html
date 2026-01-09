@@ -2,22 +2,34 @@
 @data menu from "data/menu.js"
 
 @layout layouts/default.html
-@include components/list.html {
-  className: "nav"
-}
 
-@include components/inline-svg.html {
-  icon: "logo-icon.svg",
-  class: "header__logo-icon"
-}
-  
-<h1>{{page.title}}</h1>
+@section content
+  @include components/list.html {
+    className: "nav"
+  }
 
-@include components/button/button.html {
-  items: [
-    {text: "TEXT"}
-  ]
-}
+  @include components/inline-svg.html {
+    icon: "logo-icon.svg",
+    class: "header__logo-icon"
+  }
+    
+  <h1>{{page.title}}</h1>
 
+  @include components/button/button.html {
+    items: [
+      { 
+        text: "TEXT", 
+        iconName: "user-icon",
+      }
+    ]
+  }
 
-<script type="module" src="/assets/scripts/main.js"></script>
+  @include components/icon.html {
+    name: "user-icon",
+    class: "icon--stroke"
+  }
+@endsection
+
+@section scripts
+  <script type="module" src="/assets/scripts/main.js"></script>
+@endsection

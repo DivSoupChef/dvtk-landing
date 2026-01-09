@@ -1,9 +1,12 @@
 @for item in items
   <button class="{{item.section}}__button btn _{{item.type}}">
-    {{item.text}}
-    @include partials/icon.html {
-      class: {{item.iconClass}}
-      name: {{item.iconName}}
-    }
+    {{ item.text }}
+
+    @if item.iconName
+      @include components/icon.html {
+        name: item.iconName,
+        class: "icon--stroke"
+      }
+    @endif
   </button>
 @endfor
