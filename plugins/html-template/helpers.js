@@ -94,23 +94,49 @@ function resolveInclude(file) {
 
 async function parseIncludes(html, handler) {
   let result = '';
-  let index = 0;
+  let i = 0;
 
-  const RE = /@include\s+([\w./-]+)(\s*\{[\s\S]*?\})?/g;
-  let match;
+  while (i < html.length) {
+    const start = html.indexOf('@include', i);
+    if (start === -1) {
+      result += html.slice(i);
+      break;
+    }
 
-  while ((match = RE.exec(html))) {
-    const [full, file, block] = match;
+    result += html.slice(i, start);
 
-    result += html.slice(index, match.index);
+    let j = start + 8;
+    while (html[j] === ' ') j++;
 
-    // ВАЖНО: await
+    // путь к файлу
+    let file = '';
+    while (/[\w./-]/.test(html[j])) {
+      file += html[j++];
+    }
+
+    while (html[j] === ' ') j++;
+
+    // props
+    let block = '';
+    if (html[j] === '{') {
+      let depth = 0;
+      let startBlock = j;
+
+      while (j < html.length) {
+        if (html[j] === '{') depth++;
+        if (html[j] === '}') depth--;
+        j++;
+
+        if (depth === 0) break;
+      }
+
+      block = html.slice(startBlock, j);
+    }
+
     result += await handler(file, block);
-
-    index = match.index + full.length;
+    i = j;
   }
 
-  result += html.slice(index);
   return result;
 }
 

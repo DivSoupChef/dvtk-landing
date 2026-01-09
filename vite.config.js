@@ -63,11 +63,10 @@ export default defineConfig({
   },
 
   plugins: [
-    devPagesRouter(),
-
-    buildPagesFix(),
-
     htmlTemplatePlugin(),
+
+    // devPagesRouter(),
+    buildPagesFix(),
 
     picturePlugin(),
     viteSvgPlugin(),
