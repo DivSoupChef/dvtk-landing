@@ -1,13 +1,13 @@
 @use '@styles/base/tokens' as *;
 
-.header {
-}
+/* =========================
+   HEADER BAR
+========================= */
 
-// Header bar
 .headerBar {
   padding: 20px 0;
-  border-bottom: 1px solid $neutral-200;
   background-color: #fff;
+  border-bottom: 1px solid $neutral-200;
 
   .inner {
     display: flex;
@@ -22,6 +22,11 @@
     a {
       color: $neutral-700;
       font-weight: 500;
+      transition: color 0.2s ease;
+
+      &:hover {
+        color: $accent;
+      }
     }
   }
 
@@ -32,26 +37,29 @@
   }
 }
 
-// Header Expanded
+/* =========================
+   HEADER EXPANDED NAV
+========================= */
+
 .headerExpanded {
-  display: none;
   position: relative;
+  display: none;
   padding: 12px 0;
   background-color: $accent;
-  color: white;
+  color: #fff;
 }
 
-.navWrapper {
-}
-
-/* только горизонтальный скролл */
+/* horizontal nav scroll wrapper */
 .navScroll {
   overflow-x: auto;
+  overscroll-behavior-x: contain;
+
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
   &::-webkit-scrollbar {
     display: none;
   }
-  scrollbar-width: none;
-  -ms-overflow-style: none;
 }
 
 .nav {
@@ -60,41 +68,59 @@
   white-space: nowrap;
 }
 
-/* кнопки */
+/* =========================
+   MENU BUTTON
+========================= */
+
 .menuButton {
-  background: none;
-  border: none;
-  cursor: pointer;
   display: flex;
   align-items: center;
   gap: 10px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  color: inherit;
 
-  &.active {
-    svg {
-      transform: rotate(90deg);
-    }
+  svg {
+    transition: transform 0.2s ease;
+  }
+
+  &.active svg {
+    transform: rotate(90deg);
   }
 }
 
-/* dropdown слой */
+/* =========================
+   DROPDOWN
+========================= */
+
 .dropdown {
   position: absolute;
   top: 100%;
   left: 0;
+  z-index: 10;
+
   width: 100%;
-  background: white;
-  border: 1px solid #eee;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
   padding: 24px 0;
+
+  background-color: #fff;
+  border: 1px solid $neutral-200;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.2s ease;
-  z-index: 10;
+
+  &.open {
+    opacity: 1;
+    pointer-events: auto;
+  }
 }
 
+/* dropdown layout */
 .grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(2, 1fr);
   gap: 40px;
 }
 
@@ -106,16 +132,16 @@
 
 .dropdownLink {
   color: $neutral-500;
+  transition: color 0.2s ease;
 
   &:hover {
     color: $accent;
   }
 }
 
-.open {
-  opacity: 1;
-  pointer-events: auto;
-}
+/* =========================
+   RESPONSIVE
+========================= */
 
 @media (min-width: 481px) {
   .headerBar {
@@ -127,17 +153,10 @@
   }
 }
 
-@media (min-width: 769px) {
-}
-
 @media (min-width: 1025px) {
   .headerBar {
     .menu {
       display: flex;
-
-      a:hover {
-        color: $accent;
-      }
     }
   }
 
