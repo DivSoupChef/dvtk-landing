@@ -1,6 +1,6 @@
 # DVTK landing — Дипломный проект
 
-![DVTK](./public/readme/Thumbnail.jpg "DVTK")
+![DVTK](./docs/readme/Thumbnail.jpg "DVTK")
 
 Современный адаптивный лендинг, разработанный в рамках дипломной работы и доработанный после защиты.  
 
