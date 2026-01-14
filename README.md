@@ -1,16 +1,137 @@
-# React + Vite
+# DVTK landing — Дипломный проект
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![DVTK](./public/readme/Thumbnail.jpg "DVTK")
 
-Currently, two official plugins are available:
+Современный адаптивный лендинг, разработанный в рамках дипломной работы и доработанный после защиты.  
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Проект включает полный цикл: от дизайна до оптимизированной production-сборки.
 
-## React Compiler
+Live Demo:
+[![Демо](https://img.shields.io/badge/-@Демо-%23181717?style=flat-square&logo=github)](https://divsoupchef.github.io/dvtk-landing/)
+Source Code: 
+[![GitHub Repository](https://img.shields.io/badge/-@GitHub&nbsp;Repository-%23181717?style=flat-square&logo=github)](https://github.com/DivSoupChef/dvtk-landing/tree/develop)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## О проекте
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- Разработан уникальный дизайн и перенесён в код
+- Реализован на **React + Vite**
+- Используются SCSS Modules
+- Полностью адаптивная вёрстка
+- Реализована современная архитектура компонентов
+- Выполнена глубокая оптимизация производительности
+
+---
+
+## Архитектура проекта
+
+### Контекст состояния
+
+Глобальный UI-контекст управляет:
+
+- мобильным меню
+- поисковой строкой
+- синхронизацией блокировки скролла
+- корректной SSR-безопасной работой
+
+### Кастомные хуки
+
+В проекте реализованы собственные хуки, включая:
+
+- загрузку и группировку изображений через `import.meta.glob`
+- `IntersectionObserver` для одноразовой анимации появления секций
+
+### Переиспользуемые компоненты
+
+Создана библиотека общих компонентов:
+
+- Button (с вариантами и поддержкой icon-only)
+- Container
+- Picture (адаптивные форматы avif/webp/png)
+- AnimatedSection для анимаций при скролле
+
+### Константы
+
+Навигация, новости, партнёры и служебные разделы вынесены в константы  
+и рендерятся через `map`, что упрощает поддержку структуры сайта.
+
+---
+
+## Технологии
+
+- **React**
+- **Vite**
+- **React Router**
+- **SCSS Modules**
+- **IntersectionObserver API**
+- **Context + useReducer**
+- **clsx**
+- **import.meta.glob**
+- **Lighthouse Optimization**
+
+---
+
+## Производительность
+
+Проект полностью оптимизирован и протестирован в Google Lighthouse.
+
+### Desktop
+
+| Метрика                 | Значение | Web Vitals               | Значение |
+| ----------------------- | -------- | ------------------------ | -------- |
+| Производительность      | **97**   | First Contentful Paint   | **0.4s** |
+| Специальные возможности | **91**   | Largest Contentful Paint | **0.7s** |
+| Best Practices          | **100**  | Total Blocking Time      | **0ms**  |
+| SEO                     | **100**  | Speed Index              | **0.7s** |
+|                         |          | Cumulative Layout Shift  | **0.1**  |
+
+---
+
+### Mobile
+
+| Метрика                 | Значение | Web Vitals               | Значение  |
+| ----------------------- | -------- | ------------------------ | --------- |
+| Производительность      | **99**   | First Contentful Paint   | **1.4s**  |
+| Специальные возможности | **91**   | Largest Contentful Paint | **1.8s**  |
+| Best Practices          | **100**  | Total Blocking Time      | **0ms**   |
+| SEO                     | **100**  | Speed Index              | **1.4s**  |
+|                         |          | Cumulative Layout Shift  | **0.039** |
+
+---
+
+## 🚀 Быстрый старт
+
+### Установка и запуск
+
+1. **Клонируйте репозиторий:**
+```bash
+git clone https://github.com/DivSoupChef/dvtk-landing.git
+cd dvtk-landing
+```
+
+2. **Установите зависимости:**
+```bash
+npm install
+# или
+yarn install
+```
+
+3. **Запустите сервер для разработки:**
+```bash
+npm run dev
+# или
+yarn dev
+```
+Приложение будет доступно по адресу http://localhost:5173/dvtk-landing/
+
+4. **Сборка для production:**
+```bash
+npm run build
+```
+
+5. **Предпросмотр production-сборки:**
+```bash
+npm run preview
+```
+Приложение будет доступно по адресу http://localhost:4173/dvtk-landing/
