@@ -1,0 +1,78 @@
+@use '@styles/base/tokens' as *;
+
+.contacts {
+  text-align: center;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 20px;
+  text-align: left;
+
+  .card {
+    padding: 30px;
+    background-color: #fff;
+    outline: 1px solid $neutral-200;
+    border-radius: 20px;
+
+    h3 {
+      margin-bottom: 32px;
+    }
+
+    p {
+      font-size: $body;
+    }
+
+    a {
+      font-size: $body;
+      color: $neutral-400;
+      text-decoration: underline;
+    }
+
+    .description {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .links {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+
+      .linkItem {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+
+        p {
+          font-weight: 700;
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 481px) {
+  .cards {
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+
+    .card {
+      .links {
+        .linkItem {
+          display: grid;
+          grid-template-columns: 250px 1fr;
+          gap: 12px;
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 1025px) {
+  .contacts {
+    text-align: left;
+  }
+}

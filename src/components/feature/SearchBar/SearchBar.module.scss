@@ -1,0 +1,49 @@
+@use '@styles/base/tokens' as *;
+
+.searchBar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  z-index: 999;
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.3s ease;
+
+  &.open {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  .inner {
+    position: relative;
+  }
+
+  svg {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    font-size: $h2;
+  }
+
+  .searchWrapper {
+    padding: 100px 0;
+  }
+
+  input {
+    font-size: $h1;
+    width: 100%;
+    padding-bottom: 12px;
+    border-bottom: 1px solid $neutral-200;
+
+    &::placeholder {
+      color: $neutral-400;
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+}

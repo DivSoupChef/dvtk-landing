@@ -1,0 +1,147 @@
+@use '@styles/base/tokens' as *;
+
+.header {
+}
+
+// Header bar
+.headerBar {
+  padding: 20px 0;
+  border-bottom: 1px solid $neutral-200;
+  background-color: #fff;
+
+  .inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .menu {
+    display: none;
+    gap: 24px;
+
+    a {
+      color: $neutral-700;
+      font-weight: 500;
+    }
+  }
+
+  .buttons {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+}
+
+// Header Expanded
+.headerExpanded {
+  display: none;
+  position: relative;
+  padding: 12px 0;
+  background-color: $accent;
+  color: white;
+}
+
+.navWrapper {
+}
+
+/* только горизонтальный скролл */
+.navScroll {
+  overflow-x: auto;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.nav {
+  display: flex;
+  gap: 24px;
+  white-space: nowrap;
+}
+
+/* кнопки */
+.menuButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  &.active {
+    svg {
+      transform: rotate(90deg);
+    }
+  }
+}
+
+/* dropdown слой */
+.dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background: white;
+  border: 1px solid #eee;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  padding: 24px 0;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+  z-index: 10;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.dropdownLink {
+  color: $neutral-500;
+
+  &:hover {
+    color: $accent;
+  }
+}
+
+.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+@media (min-width: 481px) {
+  .headerBar {
+    border-bottom: none;
+  }
+
+  .headerExpanded {
+    display: block;
+  }
+}
+
+@media (min-width: 769px) {
+}
+
+@media (min-width: 1025px) {
+  .headerBar {
+    .menu {
+      display: flex;
+
+      a:hover {
+        color: $accent;
+      }
+    }
+  }
+
+  .menuIcon {
+    display: none;
+  }
+}

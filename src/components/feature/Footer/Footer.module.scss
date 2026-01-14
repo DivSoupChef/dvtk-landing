@@ -1,0 +1,72 @@
+@use '@styles/base/tokens' as *;
+
+.footer {
+  padding: 50px 0 20px 0;
+  background-color: #fff;
+  border-top: 1px solid $neutral-200;
+}
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 48px;
+  padding-bottom: 50px;
+  border-bottom: 1px solid $neutral-200;
+
+  .column {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    .footerTitle {
+      font-size: $body;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+
+      &.row {
+        flex-direction: row;
+        font-size: 24px;
+        justify-content: center;
+      }
+
+      a {
+        color: $neutral-400;
+      }
+    }
+  }
+}
+
+.bottom {
+  padding-top: 32px;
+
+  color: $neutral-400;
+  text-align: center;
+}
+
+@media (min-width: 954px) {
+  .menu {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    column-gap: 12px;
+    row-gap: 32px;
+    text-align: left;
+    align-items: start;
+
+    .column {
+      gap: 20px;
+
+      .list.row {
+        justify-content: start;
+      }
+    }
+  }
+}

@@ -1,0 +1,61 @@
+@use '@styles/base/tokens' as *;
+
+.partners {
+  text-align: center;
+}
+
+.inner {
+  overflow: hidden;
+}
+
+.marquee {
+  .track {
+    display: flex;
+    width: max-content;
+    animation: marquee 20s linear infinite;
+
+    img,
+    picture {
+      width: 130px;
+      height: 130px;
+      object-fit: cover;
+      flex-shrink: 0;
+      margin-right: 20px;
+    }
+  }
+
+  .group {
+    display: flex;
+    width: 50%;
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (min-width: 769px) {
+  .marquee {
+    .track {
+      img,
+      picture {
+        width: 180px;
+        height: 180px;
+        object-fit: cover;
+        flex-shrink: 0;
+        margin-right: 20px;
+      }
+    }
+  }
+}
+
+@media (min-width: 1025px) {
+  .partners {
+    text-align: left;
+  }
+}

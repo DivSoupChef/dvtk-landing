@@ -1,0 +1,63 @@
+@use '@styles/base/tokens' as *;
+
+.usefull {
+  text-align: center;
+
+  .cards {
+    text-align: left;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 20px;
+  }
+
+  .card {
+    padding: 30px;
+    background-color: white;
+    outline: 1px solid $neutral-200;
+    border-radius: 20px;
+    
+    h3 {
+      margin-bottom: 32px;
+    }
+  }
+
+  .list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    a {
+      color: $neutral-400;
+    }
+  }
+}
+
+@media (min-width: 481px) {
+  .usefull {
+    .cards {
+      grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
+    }
+  }
+}
+
+@media (min-width: 1025px) {
+  .usefull {
+    text-align: left;
+
+    .list {
+      a {
+        transition: all 0.3s ease;
+      }
+
+      a:hover {
+        color: $accent;
+      }
+    }
+  }
+}
